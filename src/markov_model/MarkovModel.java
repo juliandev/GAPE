@@ -2,7 +2,7 @@ package markov_model;
 
 public class MarkovModel {
 	
-	public static double[][] createTransitionMatrixIndividual(int numStates) {
+	public static double[][] createTransitionMatrix(int numStates) {
 		double [][] transitionMatrix = new double[numStates][numStates];
 		double [] sumRowTransitionMatrix = new double[numStates];
 		
@@ -26,7 +26,7 @@ public class MarkovModel {
 		return transitionMatrix;
 	}
 	
-	public static double[] createAlphaIndividual(int numStates) {
+	public static double[] createAlpha(int numStates) {
 		double [] alpha = new double[numStates];
 		
 		for (int i = 0; i < alpha.length; i++) {
@@ -36,7 +36,7 @@ public class MarkovModel {
 		return alpha;
 	}
 
-	public static double[] createSigmaIndividual() {
+	public static double[] createSigma() {
 		double [] phi = new double[2];
 		
 		double random_1 = Math.random();
