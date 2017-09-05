@@ -1,3 +1,4 @@
+package genetic_algorithm;
 
 public class Individual {
 	

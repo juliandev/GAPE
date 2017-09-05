@@ -1,4 +1,4 @@
-package output;
+package print_files;
 
 import java.io.BufferedWriter;
 import java.io.File;

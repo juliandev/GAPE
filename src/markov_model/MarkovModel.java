@@ -1,4 +1,4 @@
-package MarkovModel;
+package markov_model;
 
 public class MarkovModel {
 	

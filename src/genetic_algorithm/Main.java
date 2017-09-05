@@ -1,3 +1,4 @@
+package genetic_algorithm;
 import java.util.Vector;
 
 public class Main {

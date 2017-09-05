@@ -1,10 +1,12 @@
+package genetic_algorithm;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Random;
 import java.util.Vector;
-import MarkovModel.MarkovModel;
-import output.PrintFiles;
+
+import markov_model.MarkovModel;
+import print_files.PrintFiles;
 
 public class Population {
 	
