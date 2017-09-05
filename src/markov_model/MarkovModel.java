@@ -36,7 +36,7 @@ public class MarkovModel {
 		return alpha;
 	}
 
-	public static double[] createPhiIndividual() {
+	public static double[] createSigmaIndividual() {
 		double [] phi = new double[2];
 		
 		double random_1 = Math.random();

@@ -79,7 +79,7 @@ public class Population {
 		for (int i = 0; i < populationSize; i++) {
 			double[][] individualTransitionMatrix = MarkovModel.createTransitionMatrixIndividual(numStates);
 			double[] individualAlpha = MarkovModel.createAlphaIndividual(numStates);
-			double[] individualPhi = MarkovModel.createPhiIndividual();
+			double[] individualPhi = MarkovModel.createSigmaIndividual();
 			fitness = fitnessFunction.fitness(individualTransitionMatrix, individualAlpha, individualPhi);
 			this.population.add(new Individual(individualTransitionMatrix, individualAlpha, individualPhi, fitness));
 		}
