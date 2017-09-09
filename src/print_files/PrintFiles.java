@@ -1,20 +1,43 @@
+/*
+# GAPE - Genetic Algorithm for Parameter Estimation of SIFTER tool
+#
+# Created by Eng. (C) Julian Camilo Castañeda Alonso and Msc. Tania Andrea Rodriguez Quiñones on August 2017.
+# Copyright (c) 2017. Eng. (C) Julian Camilo Castañeda Alonso and Msc. Tania Andrea Rodriguez Quiñones. Universidad Antonio Narino. All rights reserved.
+#
+# GAPE is free software: you can redistribute it and/or modify it under the terms of the 
+# Apache License 2.0 found in the LICENSE file in the root directory of this project.
+*/
+
 package print_files;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Eng. (C) Julian Camilo Castañeda Alonso - Msc. Tania Andrea Rodriguez Quiñones
+ *
+ */
+
 public class PrintFiles {
 	
+	/**
+	 * Default constructor
+	 */
 	public PrintFiles() {
 
 	}
 	
-	public void printTransitionMatrix(String output, double[][] transitionMatrix, Vector<Integer> rowNames) {
+	/**
+	 * This method print in file the Transition Matrix
+	 * @param output
+	 * @param transitionMatrix
+	 * @param rowNames
+	 */
+	public void printTransitionMatrix(String output, double[][] transitionMatrix, int[] rowNames) {
 		
 		File o = new File(output);
 		
@@ -45,7 +68,7 @@ public class PrintFiles {
     		
     		for (int i = 0; i < transitionMatrix.length; i++) {
 				
-    			bw.write("\t" + rowNames.get(i).toString());
+    			bw.write("\t" + String.valueOf(rowNames[i]));
     			
 			}
     		
@@ -53,7 +76,7 @@ public class PrintFiles {
     		
     		for (int i = 0; i < transitionMatrix.length; i++) {
     			
-    			bw.write(rowNames.get(i).toString());
+    			bw.write(String.valueOf(rowNames[i]));
     			
     			for (int j = 0; j < transitionMatrix[i].length; j++) {
 					
@@ -72,6 +95,11 @@ public class PrintFiles {
 		}
 	}
 	
+	/**
+	 * This method print in file the Alpha Matrix
+	 * @param output
+	 * @param alpha
+	 */
 	public void printAlpha(String output, double[] alpha) {
 		
 		File o = new File(output);
@@ -112,6 +140,11 @@ public class PrintFiles {
 
 	}
 	
+	/**
+	 * This method print in file the Sigma Matrix
+	 * @param output
+	 * @param sigma
+	 */
 	public void printSigma(String output, double[] sigma) {
 		
 		File o = new File(output);
@@ -150,5 +183,44 @@ public class PrintFiles {
 		}
         
 	}
-
+	
+	public void printBestIndividual(String output, String bestIndividual, String timeExecution) {
+		
+		File o = new File(output);
+		
+		FileWriter fw;
+		
+		if (!o.exists()) 
+        {
+            try 
+            {
+                o.createNewFile();
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(PrintFiles.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("\n\nFile " + o);
+                System.exit(0);
+            }
+        }
+		
+		BufferedWriter bw = null;
+		
+        try 
+    	{
+    		fw = new FileWriter(o.getAbsoluteFile(), true);
+    		bw = new BufferedWriter(fw);
+    		
+    		bw.write(bestIndividual);
+    		bw.write("\n\nElapsed Time: " + timeExecution + " seconds\n\n");
+    		
+			bw.flush();
+		} 
+    	catch (IOException e) 
+    	{
+			e.printStackTrace();
+		}
+        
+	}
+	
 }

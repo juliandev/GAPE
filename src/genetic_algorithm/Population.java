@@ -1,15 +1,31 @@
+/*
+# GAPE - Genetic Algorithm for Parameter Estimation of SIFTER tool
+#
+# Created by Eng. (C) Julian Camilo Castañeda Alonso and Msc. Tania Andrea Rodriguez Quiñones on August 2017.
+# Copyright (c) 2017. Eng. (C) Julian Camilo Castañeda Alonso and Msc. Tania Andrea Rodriguez Quiñones. Universidad Antonio Narino. All rights reserved.
+#
+# GAPE is free software: you can redistribute it and/or modify it under the terms of the 
+# Apache License 2.0 found in the LICENSE file in the root directory of this project.
+*/
+
 package genetic_algorithm;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Random;
 import java.util.Vector;
-
 import markov_model.MarkovModel;
 import print_files.PrintFiles;
 
+/**
+ * 
+ * @author Eng. (C) Julian Camilo Castañeda Alonso - Msc. Tania Andrea Rodriguez Quiñones
+ *
+ */
+
 public class Population {
 	
+	// Attributes
 	private int numStates = 0;
 	private int populationSize = 0;	
 	private int iterations = 0;
@@ -17,14 +33,22 @@ public class Population {
 	private String idFamily = null;
 	private Random rnd = null;
 	private Vector<Individual> population = null;
-	private Vector<Integer> rowNames = null;
+	private int[] rowNames = null;
 	
 	FitnessFunction fitnessFunction = null;
 	GeneticOperator geneticOperator = null;
 	Replacement replacement = null;
 	BufferedWriter bw = null;
 	
-	public Population(int populationSize, int iterations, double rateMutation, Vector<Integer> rowNames, String idFamily) {
+	/**
+	 * Constructor of the class
+	 * @param populationSize
+	 * @param iterations
+	 * @param rateMutation
+	 * @param rowNames
+	 * @param idFamily
+	 */
+	public Population(int populationSize, int iterations, double rateMutation, int[] rowNames, String idFamily) {
 		
 		bw = new BufferedWriter (new OutputStreamWriter(System.out));
 		
@@ -39,7 +63,7 @@ public class Population {
 			
 		}
 		
-		this.numStates = rowNames.size();
+		this.numStates = rowNames.length;
 		this.populationSize = populationSize;
 		this.iterations = iterations;
 		this.rateMutation = rateMutation;
@@ -72,6 +96,9 @@ public class Population {
 		
 	}
 
+	/**
+	 * This method initializes the population of algorithm
+	 */
 	private void initialPopulation() {
 		
 		double fitness = 0;
@@ -86,6 +113,9 @@ public class Population {
 		
 	}
 	
+	/**
+	 * This method contains the different generations of algorithm
+	 */
 	private void generations() {
 		
 		Individual father_1 = null; 
@@ -96,16 +126,20 @@ public class Population {
     	Vector<Individual> nextGeneration = null;
     	double tempFitness;
 		
+    	// Iterations or generations
 		for (int i = 0; i < this.iterations; i++) {
 			
 			System.gc();
+			
 			nextGeneration = new Vector<Individual>();
 						
+			// Repeat operation to build new generation
 			for (int j = 0; j < (populationSize / 2); j++) {
 				
 				father_1 = tournament();
 				father_2 = tournament();
 								
+				// Apply genetic operator to obtain sons
 				if (rnd.nextDouble() < rateMutation) {
 					
 					int random = this.rnd.nextInt(3) + 1;
@@ -199,6 +233,10 @@ public class Population {
 		
 	}
 	
+	/**
+	 * This method implements Tournament strategy based in traditional Roulette strategy 
+	 * @return an individual
+	 */
 	private Individual tournament() {
 		
 		Individual father = null;
@@ -216,6 +254,11 @@ public class Population {
     	
 	}
 	
+	/**
+	 * @param player_1
+	 * @param player_2
+	 * @return an individual
+	 */
 	private Individual tournament(Individual player_1, Individual player_2, Individual player_3, Individual player_4) {
 				
 		Individual winner = roulette(roulette(player_1, player_2), roulette(player_3, player_4));
@@ -223,6 +266,12 @@ public class Population {
 		return winner;
 	}
 	
+	/**
+	 * This method implements traditional Roullete strategy 
+	 * @param player_1
+	 * @param player_2
+	 * @return an individual
+	 */
 	private Individual roulette(Individual player_1, Individual player_2) {
 				
 		double totalFitness = player_1.getFitness() + player_2.getFitness();
@@ -232,6 +281,11 @@ public class Population {
 		return rnd.nextDouble() < point ? player_1 : player_2;		
 	}
 	
+	// TODO
+	/**
+	 * This method selects the best individual from the population
+	 * @return the best individual of population
+	 */
 	public String getBest() {
 		
 		int index = 0;
@@ -252,11 +306,9 @@ public class Population {
 				
 		String best = "Transition Matrix: \n" + this.population.get(index).getStringTransitionMatrix();
 		best += "\nAlpha:" + this.population.get(index).getStringAlphaMatrix();
-		best += "\nPhi:" + this.population.get(index).getStringPhiMatrix();
-		best += "\nFitness:" + this.population.get(index).getFitness();
-		
-		System.out.println("\n"+best);
-		
+		best += "\n\nPhi:" + this.population.get(index).getStringSigmaMatrix();
+		best += "\n\nFitness:" + this.population.get(index).getFitness();
+				
 		PrintFiles files = new PrintFiles();
 		files.printTransitionMatrix("output/infer-" + this.idFamily + ".fx", this.population.get(index).getTransitionMatrix(), this.rowNames);
 		files.printAlpha("output/alpha-" + this.idFamily + ".fx", this.population.get(index).getAlpha());

@@ -1,7 +1,28 @@
+/*
+# GAPE - Genetic Algorithm for Parameter Estimation of SIFTER tool
+#
+# Created by Eng. (C) Julian Camilo Castañeda Alonso and Msc. Tania Andrea Rodriguez Quiñones on August 2017.
+# Copyright (c) 2017. Eng. (C) Julian Camilo Castañeda Alonso and Msc. Tania Andrea Rodriguez Quiñones. Universidad Antonio Narino. All rights reserved.
+#
+# GAPE is free software: you can redistribute it and/or modify it under the terms of the 
+# Apache License 2.0 found in the LICENSE file in the root directory of this project.
+*/
+
 package markov_model;
+
+/**
+ * This class represents an Individual for Genetic Algorithm with the parameters for SIFTER
+ * @author Eng. (C) Julian Camilo Castañeda Alonso - Msc. Tania Andrea Rodriguez Quiñones
+ *
+ */
 
 public class MarkovModel {
 	
+	/**
+	 * This method build a Transtion Matrix
+	 * @param numStates
+	 * @return matrix in an vector
+	 */
 	public static double[][] createTransitionMatrix(int numStates) {
 		double [][] transitionMatrix = new double[numStates][numStates];
 		double [] sumRowTransitionMatrix = new double[numStates];
@@ -26,6 +47,11 @@ public class MarkovModel {
 		return transitionMatrix;
 	}
 	
+	/**
+	 * This method build a Alpha Matrix
+	 * @param numStates
+	 * @return matrix in an vector
+	 */
 	public static double[] createAlpha(int numStates) {
 		double [] alpha = new double[numStates];
 		
@@ -35,6 +61,11 @@ public class MarkovModel {
 		
 		return alpha;
 	}
+	
+	/**
+	 * This method build a Sigma Matrix with speciation and duplication events
+	 * @return matrix in an vector
+	 */
 
 	public static double[] createSigma() {
 		double [] phi = new double[2];

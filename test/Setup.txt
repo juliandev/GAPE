@@ -1,0 +1,6 @@
+PopulationSize=10
+Iterations=100
+WeightMutation=0.4
+IdFamily=PF0054
+Functions=123,456,789
+Output=BestIndividual_PF0054.txt
