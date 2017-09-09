@@ -18,7 +18,7 @@ import java.util.Random;
  */
 
 public class Replacement {
-	
+	 
 	Random rnd = new Random();
 	
 	/**
