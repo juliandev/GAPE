@@ -8,7 +8,7 @@
 # Apache License 2.0 found in the LICENSE file in the root directory of this project.
 */
 
-package markov_model;
+package markov_model; 
 
 /**
  * This class represents an Individual for Genetic Algorithm with the parameters for SIFTER
