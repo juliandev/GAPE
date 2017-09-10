@@ -8,7 +8,7 @@
 # Apache License 2.0 found in the LICENSE file in the root directory of this project.
 */
 
-package genetic_algorithm;
+package genetic_algorithm; 
 
 /**
  * This class represents fitness function to genetic algorithm
@@ -36,7 +36,7 @@ public class FitnessFunction {
 			
 		double fitness = 0;
 		double alphaM = alphaArray(alphaArray);
-		double phiM = phiArray(phiArray);
+		double phiM = sigmaArray(phiArray);
 		double transitionM = transitionMatrix(transitionMatrix);
 			
 		fitness = transitionM + alphaM + phiM;
@@ -84,12 +84,12 @@ public class FitnessFunction {
 	
 	/**
 	 * This method calculate the difference between speciation and duplication events 
-	 * @param phiArray
+	 * @param sigmaArray
 	 * @return the difference between the events
 	 */
-	private double phiArray(double[] phiArray) {
+	private double sigmaArray(double[] sigmaArray) {
 		
-		return phiArray[1] - phiArray[0];
+		return sigmaArray[1] - sigmaArray[0];
 		
 	} 
 	
