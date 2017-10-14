@@ -9,6 +9,7 @@
 */
 
 package genetic_algorithm;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -28,116 +29,122 @@ import print_files.PrintFiles;
 public class Main {
 
 	public static void main(String[] args) {
-		
-		long startTime = System.nanoTime(); //Start time counter 
-		
+
+		long startTime = System.nanoTime(); // Start time counter
+
 		// To print in console information about execution
-		BufferedWriter bw = new BufferedWriter (new OutputStreamWriter(System.out));
-    	
-    	if (args.length != 1) {
-    		
-    		// No valid file
-    		try {
-    			
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+		if (args.length != 1) {
+
+			// No valid file
+			try {
+
 				bw.write("Invalid parameter. Please set a valid configuration file. \n");
 				bw.flush();
-				
+
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
-				
+
 			}
 		}
-    	
-    	System.gc(); // Call Garbage Collector
-    	
-    	String setupFile = args[0]; // File to extract configuration parameters
-        String line;
-        
-        // Read parameters from configuration file
-        int populationSize = 10; // Population size of genetic algorithm
-    	int iterations = 10; // Iterations or generations for genetic algorithm
-    	double weightMutation = 0.5;
-    	String idFamily = "";  // Id of Protein Family
-    	String output = "bestIndividual_" + idFamily;
-    	int[] rowNames = null; // Number of proteins functions
-		
-    	try {
-    		
-    		BufferedReader br;
+
+		System.gc(); // Call Garbage Collector
+
+		String setupFile = args[0]; // File to extract configuration parameters
+		String line;
+
+		// Read parameters from configuration file
+		int populationSize = 10; // Population size of genetic algorithm
+		int iterations = 10; // Iterations or generations for genetic algorithm
+		double weightMutation = 0.5;
+		String idFamily = ""; // Id of Protein Family
+		String output = "bestIndividual_" + idFamily;
+		int[] rowNames = null; // Number of proteins functions
+
+		try {
+
+			BufferedReader br;
 			br = new BufferedReader(new FileReader(setupFile));
 			String[] field_value;
-	    	line = br.readLine();
-	    	
-	    	while (line != null) {
-	    		
-	    		field_value = line.split("=");
-	    		
-	    		switch (field_value[0]) {
-	    		
-					case "PopulationSize":
-						populationSize = Integer.parseInt(field_value[1]);
+			line = br.readLine();
+
+			while (line != null) {
+
+				field_value = line.split("=");
+
+				switch (field_value[0]) {
+
+				case "PopulationSize":
+					populationSize = Integer.parseInt(field_value[1]);
 					break;
-					
-					case "Iterations":
-						iterations = Integer.parseInt(field_value[1]);
+
+				case "Iterations":
+					iterations = Integer.parseInt(field_value[1]);
 					break;
-					
-					case "WeightMutation":
-						weightMutation = Double.parseDouble(field_value[1]);
+
+				case "WeightMutation":
+					weightMutation = Double.parseDouble(field_value[1]);
 					break;
-					
-					case "IdFamily":
-						idFamily = field_value[1];
+
+				case "IdFamily":
+					idFamily = field_value[1];
 					break;
-					
-					case "Functions":
-						rowNames = Arrays.stream(field_value[1].split(",")).mapToInt(Integer::parseInt).toArray();
+
+				case "Functions":
+					rowNames = Arrays.stream(field_value[1].split(",")).mapToInt(Integer::parseInt).toArray();
 					break;
-					
-					case "Output":
-						output = field_value[1];
+
+				case "Output":
+					output = field_value[1];
 					break;
-					
+
 				}
-	    		
-	    		line = br.readLine();
-	    		
-	    	}
-	    	
-	    	br.close();
-			
+
+				line = br.readLine();
+
+			}
+
+			br.close();
+
 		} catch (FileNotFoundException e) {
-			
+
 			e.printStackTrace();
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
-			
-		}	
-		
+
+		}
+
+		/*
+		 * for (int i = 0; i < 3; i++) { Population population = new
+		 * Population(populationSize, iterations, weightMutation, rowNames,
+		 * idFamily); }
+		 */
+
 		Population population = new Population(populationSize, iterations, weightMutation, rowNames, idFamily);
-		
+
 		String bestIndividual = population.getBest();
-		
+
 		// Define time of execution
-    	double elapsedTimeInSec = (System.nanoTime() - startTime) * 1.0e-9;
-		
-    	try {
-    		bw.write("\nBest individual is: " + bestIndividual);
+		double elapsedTimeInSec = (System.nanoTime() - startTime) * 1.0e-9;
+
+		try {
+			bw.write("\nBest individual is: \n" + bestIndividual);
 			bw.write("\n\nElapsed Time: " + elapsedTimeInSec + " seconds\n\n");
 			bw.flush();
-			
-			String outp = "output/" + output; 
+
+			String outp = "output/" + output;
 			PrintFiles prFiles = new PrintFiles();
-			
+
 			prFiles.printBestIndividual(outp, bestIndividual, String.valueOf(elapsedTimeInSec));
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
-			
+
 		}
 
 	}
