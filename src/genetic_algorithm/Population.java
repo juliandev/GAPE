@@ -297,9 +297,9 @@ public class Population {
 	 * @return an individual
 	 */
 	private Individual tournament(Individual player_1, Individual player_2, Individual player_3, Individual player_4) {
-
+		System.out.println(player_1.getFitness() + "\t" + player_2.getFitness() + "\t" + player_3.getFitness() + "\t" + player_4.getFitness());
 		Individual winner = roulette(roulette(player_1, player_2), roulette(player_3, player_4));
-
+		System.out.println("Ganador: " + winner.getFitness());
 		return winner;
 	}
 
@@ -315,8 +315,9 @@ public class Population {
 		double totalFitness = player_1.getFitness() + player_2.getFitness();
 
 		double point = 1 - (player_1.getFitness() / totalFitness);
-
-		System.out.println();
+		
+		System.out.println("I 1: " + player_1.getFitness() + "\tI 2: " + player_2.getFitness());
+		System.out.println("Parte de 1: " + point+ "\tParte de 2: " + (1 - (player_2.getFitness() / totalFitness)));
 
 		return rnd.nextDouble() < point ? player_1 : player_2;
 	}
