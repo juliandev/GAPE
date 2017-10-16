@@ -95,7 +95,7 @@ public class Replacement {
 		double totalFitness = player_1.getFitness() + player_2.getFitness();
 
 		// Normalizes the fitness of the first individual
-		double point = player_1.getFitness() / totalFitness;
+		double point = 1 - (player_1.getFitness() / totalFitness);
 
 		// Generate a random number to select one of the two individuals
 		return rnd.nextDouble() < point ? player_1 : player_2;
