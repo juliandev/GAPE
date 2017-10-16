@@ -118,12 +118,6 @@ public class Main {
 
 		}
 
-		/*
-		 * for (int i = 0; i < 3; i++) { Population population = new
-		 * Population(populationSize, iterations, weightMutation, rowNames,
-		 * idFamily); }
-		 */
-
 		Population population = new Population(populationSize, iterations, weightMutation, rowNames, idFamily);
 
 		String bestIndividual = population.getBest();

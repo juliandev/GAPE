@@ -351,8 +351,6 @@ public class Population {
 		best += "\n\nPhi:" + this.population.get(index).getStringSigmaMatrix();
 		best += "\n\nFitness:" + this.population.get(index).getFitness();
 
-		// String best = (this.population.get(index).getFitness() * -1) + "\n";
-
 		PrintFiles files = new PrintFiles();
 		files.printTransitionMatrix("output/infer-" + this.idFamily + ".fx",
 				this.population.get(index).getTransitionMatrix(), this.rowNames);

@@ -63,17 +63,13 @@ public class Replacement {
 
 			if (son_1.getFitness() < son_2.getFitness()) {
 
-				winners[0] = this.roulette(father_1, son_2); // Best father -
-																// Best son
-				winners[1] = this.roulette(father_2, son_1); // Worst father -
-																// Worst son
+				winners[0] = this.roulette(father_1, son_2); // Best father - Best son
+				winners[1] = this.roulette(father_2, son_1); // Worst father - Worst son
 
 			} else {
 
-				winners[0] = this.roulette(father_1, son_1); // Best father -
-																// Best son
-				winners[1] = this.roulette(father_2, son_2); // Worst father -
-																// Worst son
+				winners[0] = this.roulette(father_1, son_1); // Best father - Best son
+				winners[1] = this.roulette(father_2, son_2); // Worst father - Worst son
 
 			}
 		}
